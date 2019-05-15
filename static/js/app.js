@@ -35,8 +35,9 @@ var visoptions = {
             highlight: '#598696'
         }
     },
+
     physics: {
-        //stabilization: false,
+        stabilization: true,
         maxVelocity: 30,
         barnesHut: {
             avoidOverlap: 0.1
@@ -125,6 +126,86 @@ var visoptions = {
                 }
             }
         },
+        functions: {
+            shape: 'box',
+            color: {
+                background: 'LightSeaGreen'
+            },
+            font: {
+                color: '#111',
+                multi: true,
+                strokeWidth: 0,
+                mono: {
+                    color: '#333',
+                    size: 10,
+                    vadjust: 0
+                }
+            }
+        },  
+        receivers: {
+            shape: 'box',
+            color: {
+                background: 'PaleGreen'
+            },
+            font: {
+                color: '#111',
+                multi: true,
+                strokeWidth: 0,
+                mono: {
+                    color: '#333',
+                    size: 10,
+                    vadjust: 0
+                }
+            }
+        },
+        imports: {
+            shape: 'box',
+            color: {
+                background: 'Wheat'
+            },
+            font: {
+                color: '#111',
+                multi: true,
+                strokeWidth: 0,
+                mono: {
+                    color: '#333',
+                    size: 10,
+                    vadjust: 0
+                }
+            }
+        },
+        structs: {
+            shape: 'box',
+            color: {
+                background: 'Khaki'
+            },
+            font: {
+                color: '#111',
+                multi: true,
+                strokeWidth: 0,
+                mono: {
+                    color: '#333',
+                    size: 10,
+                    vadjust: 0
+                }
+            }
+        },
+        interfaces: {
+            shape: 'box',
+            color: {
+                background: 'Thistle'
+            },
+            font: {
+                color: '#111',
+                multi: true,
+                strokeWidth: 0,
+                mono: {
+                    color: '#333',
+                    size: 10,
+                    vadjust: 0
+                }
+            }
+        },                                        
     }
 };
 
@@ -326,6 +407,8 @@ var updatePath = function(node) {
     if (node.dir) {
         p += 'dir='+node.dir;
     }
+    p += '&kind=' + node.kind;
+    p += '&name=' + node.name;
 
     hideChildren(node.id, false);
     network.fit({
@@ -359,6 +442,8 @@ var updatePath = function(node) {
                 title: "<b>"+file.Loc+"</b>",
                 value: file.Value,
                 dir: file.Loc,
+                kind: file.Kind,
+                name: file.Name,
                 hidden: false,
                 font: {
                     size: 12,
@@ -382,6 +467,17 @@ var updatePath = function(node) {
                 n.group = 'programs';
             }else if (file.Type === "object"){
                 n.group = 'objects';
+                if(file.Kind === "func"){
+                    n.group = 'functions';
+                } else if(file.Kind == "recvfunc"){
+                    n.group = 'receivers'
+                } else if(file.Kind == "import"){
+                    n.group = 'imports'
+                } else if(file.Kind == "struct"){
+                    n.group = 'structs'
+                } else if(file.Kind == "interface"){
+                    n.group = 'interfaces'
+                }
             }else{
                 n.group = 'files';
             }
