@@ -9,6 +9,12 @@
 <p align="center"><b>Go Explorer</b> is an experimental tool to dynamically visualize Go packages using interactive overview.</p>
 
 ---
+## Extension in this fork
+I have extended the original project with the following features:
+1. More differentiated coloring of nodes
+2. Listing of receiver and interface functions
+3. Listing of Imports
+[![screen](images/screen_ext.png)](https://raw.githubusercontent.com/ganesheth/goexplorer/master/images/screen_ext.png)
 
 ## Introduction
 
